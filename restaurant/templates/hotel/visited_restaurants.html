@@ -1,0 +1,23 @@
+{% extends "base_generic.html" %}
+{% load static %}
+
+{% block content %}
+<h1>Visited Restaurants</h1>
+
+<table>  
+  {% for restaurant in visited_restaurants %}
+  <tr>
+    <td><h3 style="padding-right: 2em;" class="restaurant-title"><a href="{% url 'restaurant-detail' restaurant.pk %}">{{ restaurant.title }}</a></h3></td>
+      <td><form action="{% url 'remove-visited' restaurant.id %}" method="post" style="display: inline;">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger btn-sm" style="width: 180px; background-color: red;">Remove Visited</button>
+      </form>
+    </td>
+</tr>
+  {% empty %}
+    <td>No visited restaurants found.</td>
+  {% endfor %}
+</table>
+
+{% endblock %}
+
